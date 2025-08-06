@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jornal Escolar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Ícones Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- CSS Customizado -->
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="container">
+        <header class="border-bottom lh-1 py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-8">
+                    <h1 class="display-5 fw-bold">Notícias da Escola</h1>
+                    <p class="text-muted">Fique por dentro das novidades acadêmicas</p>
+                </div>
+                <div class="col-4 text-end">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <i class="bi bi-person-fill"></i> Área do Professor
+                    </button>
+                </div>
+            </div>
+            <button id="logoutBtn" class="btn btn-outline-danger ms-2 d-none">
+                <i class="bi bi-box-arrow-right"></i> Sair
+            </button>
+        </header>
+    </div>
+
+    <!-- Corpo Principal -->
+    <main class="container py-3 py-md-5">
+        <div class="row g-3 g-md-5">
+            <!-- Conteúdo Principal (Cards) -->
+            <div class="col-md-8">
+                <!-- Card Destaque (1ª linha) -->
+                <div class="card mb-4 shadow-sm">
+                    <img src="https://source.unsplash.com/random/800x400/?school" class="card-img-top" alt="Destaque">
+                    <div class="card-body">
+                        <div class="badge bg-primary mb-2">Destaque</div>
+                        <h3 class="mb-1">Projeto de Ciências vence feira estadual</h3>
+                        <p class="text-muted small">Por Prof. Silva - 15/08/2023</p>
+                        <p class="card-text">Alunos do 9º ano desenvolveram um sistema de filtragem de água usando
+                            materiais recicláveis e conquistaram o primeiro lugar na competição...</p>
+                        <div class="rating mt-3" data-post-id="1">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                            <span class="average">(4.2)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards Secundários (2ª linha) -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://source.unsplash.com/random/400x300/?math" class="card-img-top"
+                                alt="Matemática">
+                            <div class="card-body">
+                                <h5 class="card-title">Olimpíada de Matemática</h5>
+                                <p class="text-muted small">Por Prof. Oliveira - 10/08/2023</p>
+                                <p class="card-text">Resultados da fase regional serão divulgados na próxima semana...
+                                </p>
+                                <div class="rating" data-post-id="2">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                    <span class="average">(3.8)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://source.unsplash.com/random/400x300/?history" class="card-img-top"
+                                alt="História">
+                            <div class="card-body">
+                                <h5 class="card-title">Visita ao Museu Histórico</h5>
+                                <p class="text-muted small">Por Prof. Santos - 05/08/2023</p>
+                                <p class="card-text">8º ano terá excursão para complementar estudos sobre período
+                                    colonial...</p>
+                                <div class="rating" data-post-id="3">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                    <span class="average">(4.5)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards Secundários (3ª linha) -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://source.unsplash.com/random/400x300/?art" class="card-img-top" alt="Artes">
+                            <div class="card-body">
+                                <h5 class="card-title">Exposição de Arte Estudantil</h5>
+                                <p class="text-muted small">Por Prof. Lima - 01/08/2023</p>
+                                <p class="card-text">Trabalhos selecionados estarão em mostra na biblioteca...</p>
+                                <div class="rating" data-post-id="4">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                    <span class="average">(4.0)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://source.unsplash.com/random/400x300/?sports" class="card-img-top"
+                                alt="Educação Física">
+                            <div class="card-body">
+                                <h5 class="card-title">Jogos Interclasses</h5>
+                                <p class="text-muted small">Por Prof. Rocha - 28/07/2023</p>
+                                <p class="card-text">Inscrições abertas para as competições de setembro...</p>
+                                <div class="rating" data-post-id="5">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                    <span class="average">(4.7)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar (Categorias) -->
+            <div class="col-md-4">
+                <div class="position-sticky" style="top: 2rem;">
+                    <!-- Categorias/Subcategorias -->
+                    <div class="p-4 mb-3 bg-light rounded">
+                        <h5 class="fst-italic mb-3"><i class="bi bi-bookmarks"></i> Disciplinas</h5>
+
+                        <!-- Ciências da Natureza e Matemática -->
+                        <div class="mb-3">
+                            <h6 class="fw-bold"><i class="bi bi-egg-fried"></i> Ciências da Natureza e Matemática</h6>
+                            <ul class="list-unstyled ps-3">
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-lightning-charge"></i> Física</a>
+                                </li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-droplet"></i> Química</a></li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-flower1"></i> Biologia</a></li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-calculator"></i> Matemática</a>
+                                </li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-cash-coin"></i> Educação
+                                        Financeira</a></li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-code-square"></i> Programação</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Ciências Humanas -->
+                        <div class="mb-3">
+                            <h6 class="fw-bold"><i class="bi bi-globe-americas"></i> Ciências Humanas</h6>
+                            <ul class="list-unstyled ps-3">
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-lightbulb"></i> Filosofia</a></li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-people"></i> Sociologia</a></li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-hourglass"></i> História</a></li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-map"></i> Geografia</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Linguagens -->
+                        <div class="mb-3">
+                            <h6 class="fw-bold"><i class="bi bi-chat-square-text"></i> Linguagens</h6>
+                            <ul class="list-unstyled ps-3">
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-translate"></i> Português</a></li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-globe"></i> Inglês</a></li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-bicycle"></i> Educação Física</a>
+                                </li>
+                                <li><a href="#" class="d-block py-1"><i class="bi bi-palette"></i> Artes</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--
+                     Newsletter
+                    <div class="p-4 bg-light rounded">
+                        <h5 class="fst-italic mb-3"><i class="bi bi-envelope"></i> Newsletter</h5>
+                        <p class="small">Receba as novidades por e-mail:</p>
+                        <form class="row g-2">
+                            <div class="col-8">
+                                <input type="email" class="form-control form-control-sm" placeholder="Seu e-mail">
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary btn-sm w-100">Assinar</button>
+                            </div>
+                        </form>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="container-fluid bg-light py-4 mt-5 border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Jornal Escolar</h5>
+                    <p class="small text-muted">Notícias e eventos da nossa comunidade acadêmica.</p>
+                </div>
+                <div class="col-md-3">
+                    <h6>Links</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#" class="text-decoration-none">Sobre</a></li>
+                        <li><a href="#" class="text-decoration-none">Contato</a></li>
+                        <li><a href="#" class="text-decoration-none">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Redes Sociais</h6>
+                    <div class="social-links">
+                        <a href="#" class="text-decoration-none me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-decoration-none me-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-decoration-none me-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-decoration-none"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <p class="small text-muted mb-0">© 2025 Jornal Escolar. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="loginModalLabel"><i class="bi bi-person-badge"></i> Acesso Restrito</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-mail Institucional</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" class="form-control" id="email"
+                                    placeholder="nome@prof.educacao.sp.gov.br" required
+                                    pattern=".*@prof\.educacao\.sp\.gov\.br">
+                            </div>
+                            <div class="form-text">Somente e-mails institucionais</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Senha</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-box-arrow-in-right"></i> Entrar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <small class="text-muted">Problemas com acesso? Contate o administrador</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+
+    <script type="module" src="scripts/main.js"></script>
+    <!-- Bootstrap JS + Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script type="module">
+        // Configuração mínima (pode mover para firebase-config.js depois)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "SEU_PROJETO.firebaseapp.com",
+            projectId: "SEU_PROJETO",
+            storageBucket: "SEU_PROJETO.appspot.com"
+        };
+        const app = initializeApp(firebaseConfig);
+        window.firebaseApp = app; // Disponibiliza globalmente
+    </script>
+
+</body>
+
+</html>
