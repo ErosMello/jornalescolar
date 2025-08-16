@@ -10,7 +10,7 @@ import { auth } from './firebase-config.js';
 // =============================================
 // CONSTANTES
 // =============================================
-const USE_MOCKS = false; // Altere para true em desenvolvimento sem Firebase
+const USE_MOCKS = true; // Altere para true em desenvolvimento sem Firebase
 
 // =============================================
 // INICIALIZAÇÃO GERAL (on DOM Load)
@@ -23,16 +23,30 @@ document.addEventListener('DOMContentLoaded', () => {
     loadInitialContent();
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            logoutBtn.classList.add('d-none');
+            alert('Logout realizado!');
+            // Aqui você pode ocultar menus/páginas restritas
+        });
+    }
+});
+
 // =============================================
 // GERENCIAMENTO DE AUTENTICAÇÃO
 // =============================================
 function handleAuthStateChange(user) {
-    toggleElement('#login-section', !user);
-    toggleElement('#admin-section', !!user);
-    toggleElement('#post-form', !!user);
-
     if (user) {
-        showToast(`Bem-vindo, ${user.email.split('@')[0]}!`, 'success');
+        // Usuário autenticado
+        toggleElement('#admin-section', true);
+        toggleElement('#logoutBtn', true);
+    } else {
+        // Usuário não autenticado
+        toggleElement('#admin-section', false);
+        toggleElement('#logoutBtn', false);
     }
 }
 
@@ -55,7 +69,7 @@ function setupLoginForm() {
 }
 
 function setupLogoutButton() {
-    document.getElementById('logout-btn')?.addEventListener('click', logout);
+    document.getElementById('logoutBtn')?.addEventListener('click', logout);
 }
 
 // =============================================
@@ -180,10 +194,13 @@ function getMockPosts() {
 // =============================================
 // FUNÇÕES AUXILIARES
 // =============================================
-function toggleElement(selector, isVisible) {
-    const element = document.querySelector(selector);
-    if (element) {
-        isVisible ? element.classList.remove('d-none') : element.classList.add('d-none');
+function toggleElement(selector, show) {
+    const el = document.querySelector(selector);
+    if (!el) return;
+    if (show) {
+        el.classList.remove('d-none');
+    } else {
+        el.classList.add('d-none');
     }
 }
 

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notícias • Jornal Escolar</title>
+  <meta name="description" content="Todas as notícias do Jornal Escolar com filtros por disciplina." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <header class="border-bottom lh-1 py-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="display-6 fw-bold mb-0">Notícias</h1>
+          <nav class="small text-muted" aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="index.html">Início</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Notícias</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="text-end">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <i class="bi bi-person-fill"></i> Área do Professor
+          </button>
+          <button id="logoutBtn" class="btn btn-outline-danger ms-2 d-none">
+            <i class="bi bi-box-arrow-right"></i> Sair
+          </button>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <main class="container py-3 py-md-4">
+    <div class="row g-4">
+      <!-- Filtros -->
+      <aside class="col-lg-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title d-flex align-items-center gap-2 mb-3">
+              <i class="bi bi-funnel"></i> Filtros
+            </h5>
+
+            <label class="form-label small">Busca</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="bi bi-search"></i></span>
+              <input id="q" type="search" class="form-control" placeholder="Título, autor..." />
+            </div>
+
+            <label class="form-label small">Disciplina</label>
+            <select id="category" class="form-select mb-3">
+              <option value="">Todas</option>
+              <optgroup label="Ciências da Natureza e Matemática">
+                <option>Física</option><option>Química</option><option>Biologia</option>
+                <option>Matemática</option><option>Educação Financeira</option><option>Programação</option>
+              </optgroup>
+              <optgroup label="Ciências Humanas">
+                <option>Filosofia</option><option>Sociologia</option><option>História</option><option>Geografia</option>
+              </optgroup>
+              <optgroup label="Linguagens">
+                <option>Português</option><option>Inglês</option><option>Educação Física</option><option>Artes</option>
+              </optgroup>
+            </select>
+
+            <button id="applyFilters" class="btn btn-primary w-100">
+              <i class="bi bi-sliders"></i> Aplicar filtros
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Lista de notícias -->
+      <section class="col-lg-9">
+        <div id="resultsInfo" class="d-flex justify-content-between align-items-center mb-2 small text-muted">
+          <span id="countInfo">Carregando…</span>
+          <div>
+            <label class="me-2">Mostrar:</label>
+            <select id="pageSize" class="form-select form-select-sm d-inline-block" style="width: auto;">
+              <option>6</option><option selected>9</option><option>12</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="postsGrid" class="row g-3"></div>
+
+        <!-- Paginação -->
+        <nav class="mt-3 d-flex justify-content-between align-items-center">
+          <button id="prevPage" class="btn btn-outline-secondary" disabled>
+            <i class="bi bi-arrow-left"></i> Anteriores
+          </button>
+          <span id="pageLabel" class="small text-muted">Página 1</span>
+          <button id="nextPage" class="btn btn-outline-secondary" disabled>
+            Próximas <i class="bi bi-arrow-right"></i>
+          </button>
+        </nav>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal Login (mesma estrutura do index) -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog"><div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="loginModalLabel"><i class="bi bi-person-badge"></i> Acesso Restrito</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="login-form">
+          <div class="mb-3">
+            <label for="email" class="form-label">E-mail Institucional</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <input type="email" class="form-control" id="email" placeholder="nome@prof.educacao.sp.gov.br"
+                     required pattern="^[a-zA-Z0-9._%+-]+@prof\.educacao\.sp\.gov\.br$">
+            </div>
+            <div class="form-text">Somente e-mails institucionais</div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-lock"></i></span>
+              <input type="password" class="form-control" id="password" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">
+            <i class="bi bi-box-arrow-in-right"></i> Entrar
+          </button>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <small class="text-muted">Problemas com acesso? Contate o administrador</small>
+      </div>
+    </div></div>
+  </div>
+
+  <div id="toastContainer" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+
+  <!-- Se você já usa módulos ES6: -->
+  <script type="module" src="scripts/noticias.js"></script>
+
+  <!-- Caso use Firebase por CDN nesta página também (igual ao index),
+       deixe este bloco ou ajuste para seu firebase-config.js -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    const firebaseConfig = {
+      apiKey: "SUA_API_KEY",
+      authDomain: "SEU_PROJETO.firebaseapp.com",
+      projectId: "SEU_PROJETO",
+      storageBucket: "SUA_BUCKET.appspot.com"
+    };
+    const app = initializeApp(firebaseConfig);
+    window.firebaseApp = app;
+  </script>
+</body>
+</html>

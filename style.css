@@ -199,7 +199,59 @@ footer {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
 }
-/*dark mode*/
+
+/* ===== Organização e Comentários ===== */
+/* Layout Geral, Header, Cards, Modal, Footer já separados por contexto */
+
+/* ===== Acessibilidade ===== */
+button:focus, a:focus, input:focus, .form-control:focus {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+/* ===== Performance ===== */
+.card, .modal-content, .footer, .toast-notification {
+    will-change: transform, opacity;
+}
+
+/* ===== Customização Visual ===== */
+body {
+    background-color: #f8fafc;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* ===== Animações Suaves ===== */
+.btn, a, .star, .social-links i {
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+/* ===== Limpeza ===== */
+/* Prefira classes para estilização, evite IDs exceto para JS */
+
+/* ===== Responsividade Extra ===== */
+@media (max-width: 576px) {
+    .display-5 {
+        font-size: 1.3rem;
+    }
+    .card-img-top {
+        height: auto;
+        max-width: 100%;
+    }
+    .footer {
+        font-size: 0.8rem;
+    }
+}
+
+/* ===== Validação de E-mail ===== */
+input[type="email"]:invalid {
+    border-color: #dc3545 !important;
+    background-color: #fff0f0;
+}
+
+/* ===== SEO não se aplica ao CSS, mas mantenha o CSS enxuto para melhor indexação */
+
+/* ===== Dark Mode já presente, ótimo! */
+
 @media (prefers-color-scheme: dark) {
     :root {
         --bs-body-bg: #212529;
