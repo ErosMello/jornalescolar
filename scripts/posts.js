@@ -1,9 +1,5 @@
 import { handleError, showToast, showLoading, hideLoading } from './ui.js';
-import { firebaseApp } from './firebase-config.js';
-
-// Inicializa serviços do Firebase
-const db = firebaseApp.firestore();
-const storage = firebaseApp.storage().ref();
+import { db, auth } from './firebase-config.js';
 
 // =============================================
 // FUNÇÕES PRINCIPAIS
@@ -29,10 +25,10 @@ export async function createPost(title, content, imageFile = null, author) {
             title,
             content,
             imageUrl,
-            author,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-            isPublished: true // Pode ser usado para rascunhos
+            author: auth.currentUser.email, // sempre pega do usuário logado
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            isPublished: false // Pode ser usado para rascunhos
         });
 
         showToast('Notícia publicada com sucesso!', 'success');

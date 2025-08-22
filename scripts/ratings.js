@@ -1,9 +1,5 @@
 import { handleError, showToast } from './ui.js';
-import { firebaseApp } from './firebase-config.js';
-
-// Inicializa serviços do Firebase
-const db = firebaseApp.firestore();
-const auth = firebaseApp.auth();
+import { db, auth } from './firebase-config.js';
 
 // =============================================
 // CONSTANTES E CACHE LOCAL
@@ -90,6 +86,21 @@ export async function getPostAverageRating(postId) {
         handleError(error, 'getPostAverageRating');
         return { average: 0, count: 0 };
     }
+}
+
+/**
+ * Cria uma nova avaliação no Firebase
+ * @param {Object} param0 - Parâmetros da avaliação
+ * @param {string} param0.postId - ID da notícia
+ * @param {number} param0.value - Valor da avaliação (1-5)
+ */
+export async function createRating({ postId, value }) {
+    await db.collection('ratings').add({
+        postId,
+        userId: auth.currentUser.uid,
+        value,
+        timestamp: new Date()
+    });
 }
 
 // =============================================

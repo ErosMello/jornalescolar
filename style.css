@@ -201,32 +201,11 @@ footer {
 }
 
 /* ===== Organização e Comentários ===== */
-/* Layout Geral, Header, Cards, Modal, Footer já separados por contexto */
-
 /* ===== Acessibilidade ===== */
 button:focus, a:focus, input:focus, .form-control:focus {
     outline: 2px solid var(--bs-primary);
     outline-offset: 2px;
 }
-
-/* ===== Performance ===== */
-.card, .modal-content, .footer, .toast-notification {
-    will-change: transform, opacity;
-}
-
-/* ===== Customização Visual ===== */
-body {
-    background-color: #f8fafc;
-    font-family: 'Segoe UI', Arial, sans-serif;
-}
-
-/* ===== Animações Suaves ===== */
-.btn, a, .star, .social-links i {
-    transition: background 0.2s, color 0.2s, transform 0.2s;
-}
-
-/* ===== Limpeza ===== */
-/* Prefira classes para estilização, evite IDs exceto para JS */
 
 /* ===== Responsividade Extra ===== */
 @media (max-width: 576px) {

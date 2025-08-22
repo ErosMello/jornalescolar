@@ -1,9 +1,5 @@
 import { showToast, handleError } from './ui.js';
-import { firebaseApp } from './firebase-config.js'; // Arquivo com a configuração do Firebase
-
-// Inicializa serviços do Firebase
-const auth = firebaseApp.auth();
-const db = firebaseApp.firestore();
+import { auth, db } from './firebase-config.js'; // Arquivo com a configuração do Firebase
 
 // =============================================
 // FUNÇÕES PRINCIPAIS
@@ -73,6 +69,20 @@ export async function checkUserPermissions(user) {
         handleError(error, 'checkPermissions');
         return { isAdmin: false };
     }
+}
+
+/**
+ * Registra um novo usuário no Firestore
+ * @param {Object} user - Objeto com informações do usuário
+ * @param {string} user.email - E-mail do usuário
+ * @param {string} user.name - Nome do usuário
+ */
+export async function registerUser(user) {
+    // Garante que o primeiro cadastro nunca seja admin
+    await db.collection('users').doc(user.email).set({
+        isAdmin: false,
+        name: user.email.split('@')[0]
+    });
 }
 
 // =============================================
