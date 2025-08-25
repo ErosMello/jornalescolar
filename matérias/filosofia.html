@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>Filosofia • Jornal Escolar</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <main class="container py-3">
+        <h2>Filosofia</h2>
+        <div id="posts-filosofia"></div>
+    </main>
+    <script type="module">
+        import { db } from '../scripts/firebase-config.js';
+        db.collection('posts').where('disciplina', '==', 'Filosofia').get().then(snapshot => {
+            const container = document.getElementById('posts-filosofia');
+            snapshot.forEach(doc => {
+                const post = doc.data();
+                container.innerHTML += `<div class="card mb-3"><div class="card-body">
+                    <h5>${post.title}</h5>
+                    <p>${post.content}</p>
+                </div></div>`;
+            });
+        });
+    </script>
+</body>
+</html>

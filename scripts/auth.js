@@ -1,5 +1,5 @@
+import { auth, db } from './firebase-config.js';
 import { showToast, handleError } from './ui.js';
-import { auth, db } from './firebase-config.js'; // Arquivo com a configuração do Firebase
 
 // =============================================
 // FUNÇÕES PRINCIPAIS
@@ -7,15 +7,18 @@ import { auth, db } from './firebase-config.js'; // Arquivo com a configuração
 
 /**
  * Faz login com e-mail institucional e senha
- * @param {string} email - E-mail do professor (@prof.educacao.sp.gov.br)
+ * @param {string} email - E-mail institucional (@prof.educacao.sp.gov.br ou @al.educacao.sp.gov.br)
  * @param {string} password - Senha
  * @returns {Promise<UserCredential>}
  */
 export async function login(email, password) {
     try {
-        // Validação do e-mail institucional
-        if (!email.endsWith('@prof.educacao.sp.gov.br')) {
-            throw new Error('Apenas e-mails institucionais são permitidos.');
+        // Validação do e-mail institucional do Estado
+        if (
+            !email.endsWith('@prof.educacao.sp.gov.br') &&
+            !email.endsWith('@al.educacao.sp.gov.br')
+        ) {
+            throw new Error('Apenas e-mails institucionais do Estado são permitidos.');
         }
 
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
@@ -124,3 +127,51 @@ export async function sendPasswordResetEmail(email) {
         handleError(error, 'passwordReset');
     }
 }
+
+// Login
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    if (!email.match(/^[a-zA-Z0-9._%+-]+@(prof|al)\.educacao\.sp\.gov\.br$/)) {
+        showToast('E-mail institucional inválido!', 'danger');
+        return;
+    }
+
+    try {
+        await auth.signInWithEmailAndPassword(email, password);
+        showToast('Login realizado!', 'success');
+        // Feche o modal, atualize UI...
+    } catch (error) {
+        showToast('E-mail ou senha inválidos!', 'danger');
+    }
+});
+
+// Cadastro
+document.getElementById('register-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('register-email').value.trim();
+    const password = document.getElementById('register-password').value;
+
+    if (!email.match(/^[a-zA-Z0-9._%+-]+@(prof|al)\.educacao\.sp\.gov\.br$/)) {
+        showToast('E-mail institucional inválido!', 'danger');
+        return;
+    }
+
+    // Define tipo pelo domínio do e-mail
+    let type = email.endsWith('@prof.educacao.sp.gov.br') ? 'professor' : 'aluno';
+
+    try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        await db.collection('users').doc(email).set({
+            type,
+            name: email.split('@')[0],
+            isAdmin: false
+        });
+        showToast('Cadastro realizado! Faça login.', 'success');
+        // Feche o modal, atualize UI...
+    } catch (error) {
+        showToast('Erro ao cadastrar: ' + error.message, 'danger');
+    }
+});

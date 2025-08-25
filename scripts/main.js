@@ -5,7 +5,7 @@ import { initAuthListener, login, logout } from './auth.js';
 import { createPost, getLatestPosts } from './posts.js';
 import { initStarRatings, saveRating } from './ratings.js';
 import { handleError, showToast } from './ui.js';
-import { auth } from './firebase-config.js';
+import { db, auth } from './firebase-config.js';
 
 // =============================================
 // CONSTANTES
@@ -43,10 +43,27 @@ function handleAuthStateChange(user) {
         // Usuário autenticado
         toggleElement('#admin-section', true);
         toggleElement('#logoutBtn', true);
+        updateUIAfterLogin();
     } else {
         // Usuário não autenticado
         toggleElement('#admin-section', false);
         toggleElement('#logoutBtn', false);
+    }
+}
+
+async function updateUIAfterLogin() {
+    const email = auth.currentUser.email;
+    const userDoc = await db.collection('users').doc(email).get();
+    const userType = userDoc.data().type;
+
+    if (userType === 'professor') {
+        toggleElement('#admin-section', true);
+        document.getElementById('add-post-btn').classList.remove('d-none');
+        document.querySelectorAll('.rating').forEach(el => el.classList.remove('d-none'));
+    } else if (userType === 'aluno') {
+        toggleElement('#admin-section', false);
+        document.getElementById('add-post-btn').classList.add('d-none');
+        document.querySelectorAll('.rating').forEach(el => el.classList.remove('d-none'));
     }
 }
 

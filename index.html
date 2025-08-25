@@ -275,40 +275,75 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="loginModalLabel"><i class="bi bi-person-badge"></i> Acesso Restrito</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <h5 class="modal-title" id="loginModalLabel"><i class="bi bi-person-badge"></i> Área Restrita</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="login-form">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">E-mail Institucional</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                <input type="email" class="form-control" id="email"
-                                    placeholder="nome@prof.educacao.sp.gov.br" required
-                                    pattern="^[a-zA-Z0-9._%+-]+@prof\.educacao\.sp\.gov\.br$">
-                            </div>
-                            <div class="form-text">Somente e-mails institucionais</div>
+                    <ul class="nav nav-tabs mb-3" id="loginTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="entrar-tab" data-bs-toggle="tab" data-bs-target="#entrar"
+                                type="button" role="tab">Entrar</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="cadastrar-tab" data-bs-toggle="tab" data-bs-target="#cadastrar"
+                                type="button" role="tab">Cadastrar</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="loginTabsContent">
+                        <!-- Entrar -->
+                        <div class="tab-pane fade show active" id="entrar" role="tabpanel">
+                            <form id="login-form">
+                                <div class="mb-3">
+                                    <label for="login-email" class="form-label">E-mail institucional</label>
+                                    <input type="email" class="form-control" id="login-email" required
+                                        placeholder="nome@prof.educacao.sp.gov.br ou nome@al.educacao.sp.gov.br"
+                                        pattern="^[a-zA-Z0-9._%+-]+@(prof|al)\.educacao\.sp\.gov\.br$">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="login-password" class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="login-password" required>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">Entrar</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Senha</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                <input type="password" class="form-control" id="password" required>
-                            </div>
+                        <!-- Cadastrar -->
+                        <div class="tab-pane fade" id="cadastrar" role="tabpanel">
+                            <form id="register-form">
+                                <div class="mb-3">
+                                    <label for="register-email" class="form-label">E-mail institucional</label>
+                                    <input type="email" class="form-control" id="register-email" required
+                                        placeholder="nome@prof.educacao.sp.gov.br ou nome@al.educacao.sp.gov.br"
+                                        pattern="^[a-zA-Z0-9._%+-]+@(prof|al)\.educacao\.sp\.gov\.br$">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-password" class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="register-password" required>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-box-arrow-in-right"></i> Entrar
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer justify-content-center">
                     <small class="text-muted">Problemas com acesso? Contate o administrador</small>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Adicione após o main, visível só para professores -->
+    <div id="admin-section" class="container d-none">
+        <div class="alert alert-info mt-4">
+            <h4 class="alert-heading">Área do Professor</h4>
+            <p>Bem-vindo, professor! Aqui você pode adicionar posts e gerenciar conteúdos.</p>
+            <button id="add-post-btn" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Adicionar Post
+            </button>
+            <!-- Aqui pode listar posts do professor, etc -->
         </div>
     </div>
 
@@ -329,6 +364,47 @@
         const app = initializeApp(firebaseConfig);
         window.firebaseApp = app; // Disponibiliza globalmente
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Tema claro/escuro
+    const toggleThemeBtn = document.getElementById('toggle-theme');
+    toggleThemeBtn.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
+    // Mantém tema ao recarregar
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+
+    // Aumentar/diminuir fonte
+    let fontSize = 100;
+    const incBtn = document.getElementById('font-inc');
+    const decBtn = document.getElementById('font-dec');
+    incBtn.addEventListener('click', function() {
+        fontSize = Math.min(fontSize + 10, 150);
+        document.documentElement.style.fontSize = fontSize + '%';
+    });
+    decBtn.addEventListener('click', function() {
+        fontSize = Math.max(fontSize - 10, 70);
+        document.documentElement.style.fontSize = fontSize + '%';
+    });
+});
+</script>
+    <div id="accessibility-bar" class="accessibility-bar">
+        <button class="btn btn-outline-secondary btn-sm" id="toggle-theme" aria-label="Alternar modo claro/escuro">
+            <i class="bi bi-moon-stars"></i> Tema
+        </button>
+        <button class="btn btn-outline-secondary btn-sm" id="font-inc" aria-label="Aumentar fonte">
+            <i class="bi bi-plus-lg"></i> A+
+        </button>
+        <button class="btn btn-outline-secondary btn-sm" id="font-dec" aria-label="Diminuir fonte">
+            <i class="bi bi-dash-lg"></i> A-
+        </button>
+    </div>
+    <button id="add-post-btn" class="btn btn-success d-none">
+        <i class="bi bi-plus-circle"></i> Adicionar Post
+    </button>
 </body>
 
 </html>

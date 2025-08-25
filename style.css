@@ -278,3 +278,89 @@ input[type="email"]:invalid {
         margin-bottom: 1rem;
     }
 }
+
+/* Modo escuro acessível */
+body.dark-mode {
+    background-color: #181a1b !important;
+    color: #f8f9fa !important;
+}
+body.dark-mode .card,
+body.dark-mode .modal-content,
+body.dark-mode .bg-light,
+body.dark-mode .footer,
+body.dark-mode .p-4,
+body.dark-mode .rounded {
+    background-color: #23272b !important;
+    color: #f8f9fa !important;
+    border-color: #343a40 !important;
+}
+body.dark-mode .text-muted {
+    color: #b0b3b8 !important;
+}
+body.dark-mode .badge.bg-primary {
+    background-color: #0d6efd !important;
+    color: #fff !important;
+}
+body.dark-mode .form-control,
+body.dark-mode .input-group-text {
+    background-color: #23272b !important;
+    color: #f8f9fa !important;
+    border-color: #343a40 !important;
+}
+body.dark-mode .btn-outline-secondary {
+    color: #f8f9fa;
+    border-color: #b0b3b8;
+}
+body.dark-mode .btn-outline-secondary:hover {
+    background-color: #343a40;
+    color: #fff;
+}
+body.dark-mode .social-links i {
+    color: #b0b3b8;
+}
+body.dark-mode .social-links a:hover i {
+    color: #0d6efd;
+}
+
+/* Lista de disciplinas/tópicos visível no modo escuro */
+body.dark-mode ul.list-unstyled,
+body.dark-mode ul.list-unstyled li,
+body.dark-mode .list-unstyled,
+body.dark-mode .list-unstyled li,
+body.dark-mode .list-unstyled a {
+    color: #f8f9fa !important;
+}
+
+/* Links do rodapé visíveis no modo escuro */
+body.dark-mode footer a,
+body.dark-mode .footer a,
+body.dark-mode .footer .list-unstyled a {
+    color: #f8f9fa !important;
+}
+
+body.dark-mode .fw-bold,
+body.dark-mode h6,
+body.dark-mode h5,
+body.dark-mode h4 {
+    color: #e2e6ea !important;
+}
+
+/* Barra de acessibilidade fixa na lateral esquerda superior */
+.accessibility-bar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(255,255,255,0.85);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 10px 8px;
+}
+
+body.dark-mode .accessibility-bar {
+    background: rgba(32,34,36,0.95);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
